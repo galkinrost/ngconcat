@@ -3,6 +3,12 @@ var glob = require('glob'),
     fs = require('fs'),
     lib = require('./lib');
 
+/**
+ * @param pattern A glob pattern or on array of filepathes
+ * @param options Options or callback
+ * @param callback
+ * @type {concat}
+ */
 var concat = module.exports = function concat(pattern, options, callback) {
     if ('function' === typeof options) {
         callback = options;

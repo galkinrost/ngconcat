@@ -7,7 +7,8 @@ describe('Lib', function () {
             JSON.stringify(lib.mapSource(source)).should.be.equal(JSON.stringify({
                 modules: ['App'],
                 dependencies: ['FirstModule', 'SecondModule'],
-                templates: []
+                templates: [],
+                contents: source
             }));
         });
 
@@ -16,7 +17,8 @@ describe('Lib', function () {
             JSON.stringify(lib.mapSource(source)).should.be.equal(JSON.stringify({
                 modules: [],
                 dependencies: ['App'],
-                templates: []
+                templates: [],
+                contents: source
             }));
         });
 
@@ -25,7 +27,8 @@ describe('Lib', function () {
             JSON.stringify(lib.mapSource(source)).should.be.equal(JSON.stringify({
                 modules: ['FirstModule', 'App'],
                 dependencies: [],
-                templates: []
+                templates: [],
+                contents: source
             }));
         });
 
@@ -34,7 +37,8 @@ describe('Lib', function () {
             JSON.stringify(lib.mapSource(source)).should.be.equal(JSON.stringify({
                 modules: [],
                 dependencies: ['App.directives'],
-                templates: ['/src/templates/directives/some_directive.html']
+                templates: ['/src/templates/directives/some_directive.html'],
+                contents: source
             }));
         });
 
@@ -43,7 +47,8 @@ describe('Lib', function () {
             JSON.stringify(lib.mapSource(source)).should.be.equal(JSON.stringify({
                 modules: ['App'],
                 dependencies: ['ngRoute'],
-                templates: ['book.html']
+                templates: ['book.html'],
+                contents: source
             }));
         });
 
@@ -52,7 +57,8 @@ describe('Lib', function () {
             JSON.stringify(lib.mapSource(source)).should.be.equal(JSON.stringify({
                 modules: ['App'],
                 dependencies: ['App.directives', 'ngRoute'],
-                templates: ['/src/templates/directives/some_directive.html', 'book.html']
+                templates: ['/src/templates/directives/some_directive.html', 'book.html'],
+                contents: source
             }));
         });
     });
@@ -165,11 +171,13 @@ describe('Lib', function () {
             var arr = [
                 {
                     modules: ['App'],
-                    dependencies: ['Module']
+                    dependencies: ['Module'],
+                    filename: 'app.js'
                 },
                 {
                     modules: ['Module'],
-                    dependencies: ['App']
+                    dependencies: ['App'],
+                    filename: 'module.js'
                 }
             ], err;
 
@@ -179,7 +187,7 @@ describe('Lib', function () {
                 err = _err.message;
             }
 
-            err.should.be.equal('Circular dependency');
+            err.should.be.equal('Circular dependency in module.js');
         });
     });
 

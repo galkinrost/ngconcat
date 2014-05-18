@@ -1,3 +1,8 @@
+/**
+ * See more https://github.com/ariya/esprima and more https://github.com/galkinrost/astra
+ * AST pattern to detect "angular.module" declaration
+ * @type {{type: string, callee: {type: string, object: {type: string, name: string}, property: {type: string, name: string}}, arguments: Array}}
+ */
 var moduleAst = {
     type: 'CallExpression',
     callee: { type: 'MemberExpression',
@@ -54,7 +59,13 @@ var templateAst = [
     }
 ];
 
-exports.mapSource = function mapSource(source, filename, contents) {
+/**
+ *
+ * @param source File's content
+ * @param filename File's path
+ * @returns {{modules: Array, dependencies: Array, templates: Array, filename: *, contents: *}}
+ */
+exports.mapSource = function mapSource(source, filename) {
     var astra = require('astra');
     var esprima = require('esprima');
 
@@ -92,10 +103,21 @@ exports.mapSource = function mapSource(source, filename, contents) {
         dependencies: dependencies,
         templates: templates,
         filename: filename,
-        contents: contents
+        contents: source
     };
 };
 
+/**
+ * Sorting array of file's with angular application
+ * @param arr [{
+        modules: modules,
+        dependencies: dependencies,
+        templates: templates,
+        filename: filename,
+        contents: source
+    }]
+ * @returns {Array}
+ */
 exports.sort = function sort(arr) {
 
     function is(arr1, arr2) {
@@ -106,7 +128,6 @@ exports.sort = function sort(arr) {
         }
         return false;
     }
-
 
     var sorted = [];
 
@@ -123,13 +144,11 @@ exports.sort = function sort(arr) {
                 dependencyIndex = ii + 1;
             }
             if (_dependency && _dependent) {
-                //TODO display filename or modules
-                throw new Error('Circular dependency');
+                throw new Error('Circular dependency in ' + arr[i].filename);
             }
         }
         if (dependency && dependent && dependentIndex < dependencyIndex) {
-            //TODO display filename or modules
-            throw new Error('Dependencies error');
+            throw new Error('Dependencies error ' + arr[i].filename);
         }
 
         if (dependency) {
