@@ -54,7 +54,7 @@ var templateAst = [
     }
 ];
 
-exports.mapSource = function mapSource(source, filename) {
+exports.mapSource = function mapSource(source, filename, contents) {
     var astra = require('astra');
     var esprima = require('esprima');
 
@@ -91,7 +91,8 @@ exports.mapSource = function mapSource(source, filename) {
         modules: modules,
         dependencies: dependencies,
         templates: templates,
-        filename: filename
+        filename: filename,
+        contents: contents
     };
 };
 
