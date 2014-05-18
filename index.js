@@ -10,7 +10,13 @@ var concat = module.exports = function concat(pattern, options, callback) {
     }
     async.waterfall([
         function (next) {
-            glob(pattern, options, next);
+            if ('string' === typeof pattern) {
+                glob(pattern, options, next);
+            } else if (pattern instanceof Array) {
+                next(null, pattern);
+            } else {
+                throw new Error('First argument must be a glob\'s pattern or an array of filepathes');
+            }
         },
         function (files, next) {
             async.map(files, function (file, done) {
@@ -31,10 +37,6 @@ var concat = module.exports = function concat(pattern, options, callback) {
             next(null, Buffer.concat(buffers).toString('utf-8'));
         }
     ], callback);
-};
-
-concat.sync = function (pattern, options) {
-
 };
 
 concat.mapSource = lib.mapSource;
