@@ -1,5 +1,5 @@
 {
-  "name": "ng-concat",
+  "name": "ngconcat",
   "version": "0.0.1",
     "description": "NGCONCAT is lightweight tool for build your Angular.js app on the fly.",
     "license": "MIT",
