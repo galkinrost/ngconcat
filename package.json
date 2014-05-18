@@ -1,17 +1,17 @@
 {
   "name": "ngconcat",
-  "version": "0.0.1",
-    "description": "NGCONCAT is lightweight tool for build your Angular.js app on the fly.",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/galkinrost/ngconcat"
-    },
-    "files": [
-        "test",
-        "lib.js",
-        "index.js"
-    ],
+  "version": "0.0.2",
+  "description": "NGCONCAT is lightweight tool for build your Angular.js app on the fly.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/galkinrost/ngconcat"
+  },
+  "files": [
+    "test",
+    "lib.js",
+    "index.js"
+  ],
   "dependencies": {
     "astra": "^1.0.0",
     "esprima": "^1.1.1",
