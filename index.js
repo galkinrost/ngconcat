@@ -36,3 +36,7 @@ var concat = module.exports = function concat(pattern, options, callback) {
 concat.sync = function (pattern, options) {
 
 };
+
+concat.mapSource = lib.mapSource;
+
+concat.sort = lib.sort;
